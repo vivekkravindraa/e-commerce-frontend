@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title> Categories </title>
+</head>
+<body>
+    <div id="categories">
+
+    </div>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+
+        const categoriesHandle = document.getElementById('categories');
+
+        let ol = document.createElement('ol');
+        ol.setAttribute('type','1');
+
+        function buildList(categories) {
+            categories.forEach((category) => {
+                let li = document.createElement('li');
+                let liText = document.createTextNode(`${category.name.toUpperCase()}`);
+                li.appendChild(liText);
+                ol.appendChild(li);
+            })
+        }
+        
+        categoriesHandle.appendChild(ol);
+
+        axios.get(`http://localhost:3000/categories`)
+        .then((response) => {
+            // console.log(response.data);
+            let categories = response.data;
+            buildList(categories)
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+    </script>
+</body>
+</html>

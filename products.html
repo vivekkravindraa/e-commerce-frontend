@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title> Products </title>
+</head>
+<body>
+    <div id="products">
+
+    </div>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        
+        const productsHandle = document.getElementById('products');
+
+        let table = document.createElement('table');
+        table.setAttribute('border','1');
+        let thead = document.createElement('thead');
+        let tr = document.createElement('tr');
+
+        function buildHead(products) {            
+            Object.keys(products[0]).forEach((product) => {
+                let th = document.createElement('th');
+                let thText = document.createTextNode(`${product}`);
+                th.appendChild(thText);
+                tr.appendChild(th);
+            })
+            thead.appendChild(tr);
+            table.appendChild(thead);
+        }
+        productsHandle.appendChild(table);
+
+        let tbody = document.createElement('tbody');
+
+        function buildRow(products) {
+            products.forEach((product) => {
+                let row = document.createElement('tr');
+
+                let td1 = document.createElement('td');
+                let td1Text = document.createTextNode(`${product.codEligible}`);
+                let td2 = document.createElement('td');
+                let td2Text = document.createTextNode(`${product._id}`);
+                let td3 = document.createElement('td');
+                let td3Text = document.createTextNode(`${product.name}`);
+                let td4 = document.createElement('td');
+                let td4Text = document.createTextNode(`${product.price}`);
+                let td5 = document.createElement('td');
+                let td5Text = document.createTextNode(`${product.description}`);
+                let td6 = document.createElement('td');
+                let td6Text = document.createTextNode(`${product.category}`);
+                let td7 = document.createElement('td');
+                let td7Text = document.createTextNode(`${product.stock}`);
+                let td8 = document.createElement('td');
+                let td8Text = document.createTextNode(`${product.maxUnitPurchase}`);
+                let td9 = document.createElement('td');
+                let td9Text = document.createTextNode(`${product.lowStockAlert}`);
+                let td10 = document.createElement('td');
+                let td10Text = document.createTextNode(`${product.__v}`);
+
+                td1.appendChild(td1Text);
+                td2.appendChild(td2Text);
+                td3.appendChild(td3Text);
+                td4.appendChild(td4Text);
+                td5.appendChild(td5Text);
+                td6.appendChild(td6Text);
+                td7.appendChild(td7Text);
+                td8.appendChild(td8Text);
+                td9.appendChild(td9Text);
+                td10.appendChild(td10Text);
+
+                row.appendChild(td1);
+                row.appendChild(td2);
+                row.appendChild(td3);
+                row.appendChild(td4);
+                row.appendChild(td5);
+                row.appendChild(td6);
+                row.appendChild(td7);
+                row.appendChild(td8);
+                row.appendChild(td9);
+                row.appendChild(td10);
+
+                tbody.appendChild(row);
+                table.appendChild(tbody);
+            })
+        }
+        productsHandle.appendChild(table);
+
+        axios.get(`http://localhost:3000/products`)
+        .then((response) => {
+            console.log(response.data);
+            let products = response.data;
+            buildHead(products);
+            buildRow(products);
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+
+    </script>
+</body>
+</html>
