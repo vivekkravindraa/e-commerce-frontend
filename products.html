@@ -7,6 +7,7 @@
     <title> Products </title>
 </head>
 <body>
+    <h2>Listing Products - <span id="listCount"></span></h2>
     <div id="products">
 
     </div>
@@ -14,6 +15,7 @@
     <script>
         
         const productsHandle = document.getElementById('products');
+        const listCountHandle = document.getElementById('listCount');
 
         let table = document.createElement('table');
         table.setAttribute('border','1');
@@ -91,6 +93,7 @@
         .then((response) => {
             console.log(response.data);
             let products = response.data;
+            listCountHandle.innerHTML = products.length;
             buildHead(products);
             buildRow(products);
         })

@@ -5,8 +5,89 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title> Account </title>
+    <style>
+        .form-left {
+            position: absolute;
+            left: 100px;
+        }
+        .form-right {
+            position: absolute;
+            right: 100px;
+        }
+    </style>
 </head>
 <body>
-    
+    <form class="form-left"  id="signin">
+        <fieldset style="width:200px">
+            <legend>Log In</legend>
+            
+            <label for="signin-email">Email*</label>
+            <input id="signin-email" type="text" />
+            
+            <br/><br/>
+            
+            <label for="signin-password">Password*</label>
+            <input id="signin-password" type="password" />
+            
+            <br/><br/>
+            
+            <input type="submit" value="Log In">
+        </fieldset>
+    </form>
+    <form class="form-right" id="signup">
+        <fieldset style="width:200px">
+            <legend>Sign Up</legend>
+
+            <label for="username">Username*</label>
+            <input id="username" type="text" />
+
+            <br/><br/>
+
+            <label for="signup-email">Email*</label>
+            <input id="signup-email" type="text" />
+  
+            <br/><br/>
+            
+            <label for="signup-password">Password*</label>
+            <input id="signup-password" type="password" />
+            
+            <br/><br/>
+
+            <input type="submit" value="Sign Up">
+        </fieldset>
+    </form>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+
+        const signInEmailHandle = document.getElementById('signin-email');
+        const signInPasswordHandle = document.getElementById('signin-password');
+        const logInHandle = document.getElementById('login');
+
+        const usernameHandle = document.getElementById('username');
+        const signUpEmailHandle = document.getElementById('signup-email');
+        const signUpPasswordHandle = document.getElementById('signup-password');
+        const signUpHandle = document.getElementById('signup');
+
+        signUpHandle.addEventListener('submit', function () {
+
+            let signUpData = {
+                username: usernameHandle.value,
+                email: signUpEmailHandle.value,
+                password: signUpPasswordHandle.value
+            }
+            
+            console.log(signUpData);
+
+            axios.post(`http://localhost:3000/users`, signUpData)
+            .then((response) => {
+                console.log(response.data);
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+
+        }, false);
+
+    </script>
 </body>
 </html>
